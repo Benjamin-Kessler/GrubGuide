@@ -1,0 +1,38 @@
+/* assets/custom.css */
+
+.hoverable-card {
+    transition: transform 0.3s ease-in-out;
+}
+
+.hoverable-card:hover {
+    transform: scale(1.05);
+    /* Increase size on hover */
+    cursor: pointer;
+    /* Change cursor on hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* Add shadow on hover */
+}
+
+/* Style for the hoverable text */
+.hoverable-card:hover .hoverable-text {
+    display: block;
+}
+
+/* Initial state of the hoverable text (hidden) */
+.hoverable-text {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Slight transparency */
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    /* Fill 100% of the card width */
+    top: calc(100% - 15.4rem);
+    /* Align with the lower edge of the CardImg */
+    /*text-align: center;
+    /* Center the text within the hoverable box */
+}
