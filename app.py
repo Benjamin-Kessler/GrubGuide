@@ -14,8 +14,6 @@ import numpy as np
 app: dash.Dash = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME])
 app.title = 'GrubGuide'
 
-weekday_column: str = f"Open_{datetime.date.today().weekday() + 1}"
-
 # Read data from local file and create new column for 'average' price
 df: pd.DataFrame = pd.read_excel('restaurants.xlsx', sheet_name='Food').fillna('')
 df['Preis'] = df['Preis min'] + df['Preis max'] / 2
@@ -69,6 +67,9 @@ def update_cards(  # pylint: disable=too-many-arguments
 
     except KeyError:
         pass
+
+    # Compute weekday for displaying opening hours
+    weekday_column: str = f"Open_{datetime.date.today().weekday() + 1}"
 
     # Sort dataframe
     if sort_by == 'Name':
