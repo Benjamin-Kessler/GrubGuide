@@ -11,7 +11,11 @@ import pandas as pd
 import numpy as np
 
 # Define dash application
-app: dash.Dash = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME])
+app: dash.Dash = dash.Dash(
+    __name__,
+    external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME],
+    meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
+)
 app.title = 'GrubGuide'
 
 # Read data from local file and create new column for 'average' price
@@ -72,10 +76,16 @@ def update_cards(  # pylint: disable=too-many-arguments
     weekday_column: str = f"Open_{datetime.date.today().weekday() + 1}"
 
     # Sort dataframe
-    if sort_by == 'Name':
+    if sort_by == 'Name (aufsteigend)':
         filtered_df: pd.DataFrame = filtered_df.sort_values(by='Name').reset_index(drop=True)
-    elif sort_by == 'Preis':
-        filtered_df: pd.DataFrame = filtered_df.sort_values(by=['Preis', 'Name']).reset_index(drop=True)
+    elif sort_by == 'Name (absteigend)':
+        filtered_df: pd.DataFrame = filtered_df.sort_values(by='Name', ascending=False).reset_index(drop=True)
+    elif sort_by == 'Preis (aufsteigend)':
+        filtered_df: pd.DataFrame = filtered_df.sort_values(by=['Preis', 'Preis min', 'Name']).reset_index(drop=True)
+    elif sort_by == 'Preis (absteigend)':
+        filtered_df: pd.DataFrame = filtered_df.sort_values(
+            by=['Preis', 'Preis min', 'Name'], ascending=False
+        ).reset_index(drop=True)
     elif sort_by == 'Wegzeit':
         filtered_df: pd.DataFrame = filtered_df.sort_values(by=['Wegzeit', 'Name']).reset_index(drop=True)
     elif sort_by == 'Gesamtzeitaufwand':
@@ -86,8 +96,6 @@ def update_cards(  # pylint: disable=too-many-arguments
     # Create a bootstrap component card for each restaurant satisfying the filters
     filtered_cards: List[Union[dbc.Card, html.A]] = []
     for i in range(len(filtered_df)):
-        # ... (previous code)
-
         # Create hoverable text element
         hoverable_text = html.Div(
             f"Öffnungszeiten: {filtered_df[weekday_column][i]}",
@@ -119,6 +127,7 @@ def update_cards(  # pylint: disable=too-many-arguments
             ]
         )
 
+        # Create footer displaying information
         card_footer = dbc.CardFooter(
             [
                 html.Div(
@@ -226,8 +235,15 @@ app.layout = html.Div(
                                 html.Label('Sortieren nach:'),
                                 dcc.Dropdown(
                                     id="sort_by",
-                                    options=['Name', 'Preis', 'Wegzeit', 'Gesamtzeitaufwand'],
-                                    value='Name',
+                                    options=[
+                                        'Name (aufsteigend)',
+                                        'Name (absteigend)',
+                                        'Preis (aufsteigend)',
+                                        'Preis (absteigend)',
+                                        'Wegzeit',
+                                        'Gesamtzeitaufwand',
+                                    ],
+                                    value='Name (aufsteigend)',
                                     clearable=False,
                                 ),
                             ],
