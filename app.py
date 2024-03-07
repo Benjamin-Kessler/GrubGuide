@@ -4,8 +4,8 @@ Code for the restaurant selection app 'GrubGuide'. Contains all the required cod
 
 # Import libraries
 from typing import List, Union
-from dash import dash, html, dcc, Input, Output
 import datetime
+from dash import dash, html, dcc, Input, Output
 import dash_bootstrap_components as dbc
 import pandas as pd
 import numpy as np
