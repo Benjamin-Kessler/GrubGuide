@@ -1,6 +1,6 @@
 # GrubGuide
 
-Website/Dashboard listing restaurants in Gundeli (Basel, Switzerland) created with Python Dash.
+Website/Dashboard listing restaurants in Gundeli (Basel, Switzerland) created with Python Dash (an online version can be accessed [here](https://grubguide.vogler.dev/)).
 
 ## Relevant files
 
@@ -9,7 +9,7 @@ Website/Dashboard listing restaurants in Gundeli (Basel, Switzerland) created wi
 
 ## Local execution
 
-Run the [app.py](app.py) file and open the corresponding website created locally ()
+Run the [app.py](app.py) file and open the corresponding website which was created locally.
 
 ## Next steps
 
